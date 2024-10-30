@@ -1,6 +1,7 @@
 package com.example.pertemuan_5
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,17 +37,15 @@ fun LatihanInput(modifier: Modifier = Modifier){
     var email by remember { mutableStateOf("") }
     var noTelpon by remember { mutableStateOf("") }
     var alamat by remember { mutableStateOf("") }
-    var jenis by remember { mutableStateOf("") }
     var memilihjk by remember { mutableStateOf("") }
+
+    val listjk = listOf("Laki-laki", "Perempuan")
 
     var namasv by remember { mutableStateOf("") }
     var emailsv by remember { mutableStateOf("") }
     var noTelponsv by remember { mutableStateOf("") }
     var alamatsv by remember { mutableStateOf("") }
-    var jenissv by remember { mutableStateOf("") }
     var memilihjksv by remember { mutableStateOf("") }
-
-    val listjk = listOf("Laki-Laki", "Perempuan")
 
     Column(modifier = modifier
         .fillMaxSize()
@@ -58,11 +57,11 @@ fun LatihanInput(modifier: Modifier = Modifier){
         , fontWeight = FontWeight.Bold)
         Spacer(Modifier.padding(16.dp))
         TextField(
-            modifier = Modifier.fillMaxWidth().padding(5.dp),
             value = nama,
             onValueChange = {nama = it},
-            label = { Text("nama")},
-            placeholder = {Text("Masukkan Nama Anda")}
+            label = {Text("nama")},
+            placeholder = {Text("Masukkan Nama Anda")},
+            modifier = Modifier.fillMaxWidth().padding(5.dp)
         )
         Row {
             listjk.forEach{item ->
@@ -75,46 +74,48 @@ fun LatihanInput(modifier: Modifier = Modifier){
                     Text(item)
                 }
             }
-            TextField(
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                value = email,
-                onValueChange = {email = it},
-                label = { Text("E-mail")},
-                placeholder = {Text("Masukkan E-mail Anda")}
-            )
-            TextField(
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                value = noTelpon,
-                onValueChange = {noTelpon = it},
-                label = { Text("No Telepon")},
-                placeholder = {Text("Masukkan Nomor Telepon Anda")}
-            )
-            TextField(
-                modifier = Modifier.fillMaxWidth().padding(5.dp),
-                value = alamat,
-                onValueChange = {alamat = it},
-                label = { Text("Alamat")},
-                placeholder = {Text("Masukkan Nama Anda")}
-            )
-            Button(onClick = {
-                namasv = nama
-                emailsv = email
-                noTelponsv = noTelpon
-                alamatsv = alamat
-                memilihjksv = memilihjk
-            }) {
-                Text("Submit")
-            }
-            ElevatedCard(modifier = Modifier.fillMaxWidth()
-                ,colors = CardDefaults.cardColors(containerColor = Color.Black)
-            )
-            {
-                DetailMessage(judul = "nama", isinya = namasv)
-                DetailMessage(judul = "email", isinya = emailsv)
-                DetailMessage(judul = "noTelpon", isinya = noTelponsv)
-                DetailMessage(judul = "Alamat", isinya = alamatsv)
-                DetailMessage(judul = "Jenis Kelamin", isinya = memilihjksv)
-            }
+        }
+
+        TextField(
+            modifier = Modifier.fillMaxWidth().padding(5.dp),
+            value = email,
+            onValueChange = {email = it},
+            label = { Text("E-mail")},
+            placeholder = {Text("Masukkan E-mail Anda")}
+        )
+        TextField(
+            modifier = Modifier.fillMaxWidth().padding(5.dp),
+            value = noTelpon,
+            onValueChange = {noTelpon = it},
+            label = { Text("No Telepon")},
+            placeholder = {Text("Masukkan Nomor Telepon Anda")}
+        )
+        TextField(
+            modifier = Modifier.fillMaxWidth().padding(5.dp),
+            value = alamat,
+            onValueChange = {alamat = it},
+            label = { Text("Alamat")},
+            placeholder = {Text("Masukkan Nama Anda")}
+        )
+
+        Button(onClick = {
+            namasv = nama
+            emailsv = email
+            noTelponsv = noTelpon
+            alamatsv = alamat
+            memilihjksv = memilihjk
+        }) {
+            Text("Submit")
+        }
+        ElevatedCard(modifier = Modifier.fillMaxWidth()
+            ,colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+        )
+        {
+            DetailMessage(judul = "nama", isinya = namasv)
+            DetailMessage(judul = "email", isinya = emailsv)
+            DetailMessage(judul = "noTelpon", isinya = noTelponsv)
+            DetailMessage(judul = "Alamat", isinya = alamatsv)
+            DetailMessage(judul = "JK", isinya = memilihjksv)
         }
     }
 }
@@ -123,22 +124,28 @@ fun LatihanInput(modifier: Modifier = Modifier){
 fun DetailMessage(
     judul: String, isinya: String
 ) {
-        Row(modifier = Modifier.fillMaxWidth().padding(top = 12.dp
-        )){
+    Column(modifier = Modifier.padding(16.dp))
+    {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+            , horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = judul,
                 modifier = Modifier.weight(0.3f),
-                fontSize = 18.sp
+                fontSize = 14.sp
             )
-            Text(text = ":",
+            Text(
+                text = ":",
                 modifier = Modifier.weight(0.2f),
                 fontWeight = FontWeight.Bold
             )
-            Text(text = isinya,
+            Text(
+                text = isinya,
                 modifier = Modifier.weight(0.9f),
-                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = Cursive
             )
         }
     }
+}
